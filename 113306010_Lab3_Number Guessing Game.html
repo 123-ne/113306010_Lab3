@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+	<div id="picture"></div>
+	<h1>113306010_Lab3_Number Guessing Game</h1>
+
+	<script>
+		var i = 7; // 剩餘的次數
+		var max = 100; // 最大範圍
+		var min = 1; // 最小範圍
+		var guessNum = 0; // 猜測的數字
+		var answer = Math.floor(Math.random() * 98) + 2; // 正確答案 (2~99)
+		
+		while (i > 0) {
+			// 提示用戶輸入
+			guessNum = parseInt(window.prompt("請輸入 " + min + "~" + max + " 之間的數字\n還剩下 " + i + " 次機會"));
+
+			// 檢查輸入是否有效
+			if (isNaN(guessNum)) {
+				alert("不能輸入空值");
+				continue;
+			}
+			if (guessNum >= max || guessNum <= min) {
+				alert("請輸入有效範圍內的數字！（不能選擇範圍的上下限）");
+				continue;
+			}
+			
+			// 減少機會
+			i--;
+
+			// 判斷猜測結果
+			if (guessNum === answer) {
+				document.getElementById('picture').innerHTML = '<img src="correct.jpg" alt="Correct!" />';
+				alert("恭喜你成功了！");
+				break; // 猜對了結束遊戲
+			} else if (guessNum > answer) {
+				max = guessNum; // 更新最大範圍
+			} else if (guessNum < answer) {
+				min = guessNum; // 更新最小範圍
+			}
+
+			// 如果次數用完
+			if (i === 0) {
+				alert("次數已用完！正確答案是：" + answer);
+				document.getElementById('picture').innerHTML = '<img src="wrong.jpg" alt="Wrong!" />';
+			}
+		}
+	</script>
+</body>
+</html>
